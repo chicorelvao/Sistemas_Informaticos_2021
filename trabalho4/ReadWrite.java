@@ -30,7 +30,6 @@ public class ReadWrite {
 		verify(file_client);
 
 
-		//write_new_client("dadada","dadada","dada","dadad");
 		
 
 	}
@@ -50,7 +49,7 @@ public class ReadWrite {
 				String data = myReader.nextLine();
 				//converte uma das linahs para array
 				String[] datastrip = stripLine(data); 
-				System.out.println(data  + " user");
+				
 				//adiciona um cliente a hasmap
 				
 				Client newClient = new Client(datastrip[0],datastrip[1],datastrip[2],datastrip[3]);
@@ -116,11 +115,7 @@ public class ReadWrite {
 
 			BufferedWriter myWriter = null;
 			myWriter = new BufferedWriter(new FileWriter(this.file_client, true));
-			//FileWriter mypub = new FileWriter(file_publication);
-			//FileWriter myauthor = new FileWriter(file_authors);
-			//myWriter.write("user1 user1@mail 123 affiliation1 \n");
-			//myWriter.write("user2 user2@mail 123 affiliation2 \n");
-			//myWriter.write("user3 user3@mail 123 affiliation3 \n");
+			
 			myWriter.write(name+" "+email+" "+password+" "+affi);
 			myWriter.newLine();
 			myWriter.flush();

@@ -310,11 +310,15 @@ public class ServerImp extends UnicastRemoteObject implements Interface{
 		//indicador para que o cliente sabia se uma pub foi removida
 		user.removedPub = false;
 		//updata do hashmap com todas as pubs
-		this.pubDB = RWfile.pubDB_updatefromfile(this.pubDB);
 		
+		this.pubDB = RWfile.pubDB_updatefromfile(this.pubDB);
+		System.out.println("Remove Pub: PubDB updated from file.");
 		
 		
 		//percorrer os autores da publicacao com o doi definido pelo o usuário
+		for(Pub p : pubDB.values()) {
+			p.print();
+		}
 		for(String authorIndex : pubDB.get(DOI).getAuthors()) {
 			//se o nome do usuario for igual a um dos autores
 			System.out.println("\n\n\nChecking if there is any pub this author can remove.");
