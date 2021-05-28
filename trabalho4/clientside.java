@@ -1,5 +1,4 @@
-
-package si_2021.trabalho4;
+package trabalho4;
 import java.util.*;
 import java.rmi.registry.LocateRegistry; 
 import java.rmi.registry.Registry;
@@ -343,8 +342,6 @@ public class clientside {
 			}
 		}
 	}
-
-	
 	public static boolean mainMenu (Scanner sc, boolean optionMenu, Client user, Interface interfaceServer, Registry registry) throws InterruptedException, IOException, RemoteException  {
 		//variavel para receber inputs do utilizador
 		String input;
@@ -372,13 +369,10 @@ public class clientside {
 				System.out.println("Listar publicações:\n 1 - Por ano\n 2 - por citações");
 				
 				correctInput = false;
-				user = interfaceServer.userUpdateMyPubs(user);
 				
 				while(!correctInput) {
 					
 					input = sc.nextLine();
-					
-					
 					switch(input) {
 						case "1":
 							user = interfaceServer.printPubs(user, true);
@@ -444,13 +438,12 @@ public class clientside {
 				if(intText) {
 					//itera por todos os autore da publicaÃ§Ã£o
 					for (String i: authors) {
-				
+						
 							//caso um dos autores da publicaÃ§Ã£o seja o cliente logado no momento pode adicionar  apublicaÃ§Ã£o
 					if  (user.getName().equals(i.trim())) {
 							//Ã© possivel adicionar uma publicaÃ§Ã£o se:
 							//-> caso o DOI nÃ£o exista jÃ¡ na base de dados (publicaÃ§Ã£o repetida 
-							
-						pubAdd = interfaceServer.addNewPub(title, journal, authors, addNewPubNumbers);
+						pubAdd = interfaceServer.addNewPub(title, journal, authors, addNewPubNumbers,user.getName());
 						break; 
 						} 
 					}
@@ -489,6 +482,7 @@ public class clientside {
 						printPublications(user.requestPubs());
 						System.out.println("Select publications you want to add.\nExample: 1 2 3 12 45 334");
 						System.out.println("Press X to get out.");
+						
 						correctInput = false;
 					
 					} else {
@@ -552,7 +546,9 @@ public class clientside {
 									user.requestPubs().get(j).print();
 									auxPubs.push(user.requestPubs().get(j));
 								}
+								
 								//a stack do utilizador e atualizada
+								
 								user.userPubsUpdate(auxPubs);
 								correctInput = true;
 							}
@@ -631,7 +627,7 @@ public class clientside {
 	
 	
 			case "5":
-				
+				//da print das metricas
 				System.out.println("Perfomance metric");
 				System.out.println("Pick your H metric number: ");
 				int H = 0;
@@ -672,7 +668,7 @@ public class clientside {
 
 	}
 	
-	
+	//da print de todas as publicações do cliente que estão nas suas publicações
 	public static void printPublications(Stack<Pub> pub) {
 		int counter = 1;
 		System.out.println("Publications: ");

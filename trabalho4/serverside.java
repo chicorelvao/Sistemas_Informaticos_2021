@@ -1,4 +1,4 @@
-package si_2021.trabalho4;
+package trabalho4;
 
 import java.io.IOException;
 import java.rmi.registry.LocateRegistry;
@@ -30,12 +30,6 @@ public class serverside
 			System.out.println("CHECKPOINT1 new client");
 			
 			ReadWrite RWfile = new ReadWrite();
-	
-			
-			
-			
-			
-			
 			ServerImp remoteObject = new ServerImp(RWfile);
 			
 			registry.bind("Implement", remoteObject);
