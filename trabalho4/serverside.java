@@ -30,6 +30,12 @@ public class serverside
 			System.out.println("CHECKPOINT1 new client");
 			
 			ReadWrite RWfile = new ReadWrite();
+	
+			
+			
+			
+			
+			
 			ServerImp remoteObject = new ServerImp(RWfile);
 			
 			registry.bind("Implement", remoteObject);

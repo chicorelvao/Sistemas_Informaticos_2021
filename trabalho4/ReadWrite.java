@@ -4,6 +4,7 @@ import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.io.IOException;
 import java.util.Scanner; // Import the Scanner class to read text files
+import java.util.Stack;
 import java.io.FileWriter; 
 import java.util.HashMap;
 
@@ -319,7 +320,66 @@ public class ReadWrite {
 		//o DOI que ser quer inserir n√£o esta na base de dados
 		return false;
 	}
+	
+public Stack<Pub> updateMyPubs( String userName) {
+		
+		Stack<Pub> stackUpdate =  new Stack<Pub>();
+		
+	
+		Pub pub;
 
+		String[] dataStrip_noSymbol;
+		String[] dataStrip;
+		try {
+			File myObj = new File(this.file_publication);
+			Scanner myReader = new Scanner(myObj);
+			stackUpdate.clear();
+			//itera por todos os documentos 
+			while (myReader.hasNextLine()) {
+
+				String data = myReader.nextLine();
+
+				dataStrip = data.split("/");
+				dataStrip_noSymbol = data.replace("?","").split("/");
+				//nome de autores sem simbolo
+				String[] authors_name_Symbol = dataStrip[2].split("!");
+				//retira as variaveis de publicaÁ„o de uma dada linha
+				String title = dataStrip_noSymbol[0];
+				int year = Integer.parseInt(dataStrip_noSymbol[1]);
+				String[] authors_name = dataStrip_noSymbol[2].split("!");
+				String journal = dataStrip_noSymbol[3];
+				int volume= Integer.parseInt(dataStrip_noSymbol[4]);
+				int pages= Integer.parseInt(dataStrip_noSymbol[5]);
+				int citations = Integer.parseInt(dataStrip_noSymbol[6]);
+				int pub_DOI = Integer.parseInt(dataStrip_noSymbol[7]);
+
+				//cria a publicaÁ„o
+				pub =  new Pub(title, year, authors_name, journal, volume, pages, citations, pub_DOI);
+
+
+				for (String auth: authors_name_Symbol) {
+
+					if( auth.replace("?", "").equals(userName) &&  auth.indexOf("?")>0) {
+						stackUpdate.push(pub);
+					
+
+					}
+				}
+			}
+
+
+
+		}catch (FileNotFoundException e) {
+			System.out.println("An error occurred.\n");
+			e.printStackTrace();
+		}
+		
+		//System.out.println(user.userPubs.size());
+		
+		return stackUpdate;
+		//o DOI que ser quer inserir n„o esta na base de dados
+	}
+	
 
 
 }

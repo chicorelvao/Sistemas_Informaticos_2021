@@ -372,10 +372,13 @@ public class clientside {
 				System.out.println("Listar publicações:\n 1 - Por ano\n 2 - por citações");
 				
 				correctInput = false;
+				user = interfaceServer.userUpdateMyPubs(user);
 				
 				while(!correctInput) {
 					
 					input = sc.nextLine();
+					
+					
 					switch(input) {
 						case "1":
 							user = interfaceServer.printPubs(user, true);

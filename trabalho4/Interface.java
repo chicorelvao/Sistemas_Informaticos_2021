@@ -3,6 +3,7 @@ package si_2021.trabalho4;
 import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.Stack;
 
 
 public interface Interface extends Remote{
@@ -24,5 +25,8 @@ public interface Interface extends Remote{
 	public Client removePub(Client user, int DOI) throws RemoteException, IOException;
 	
 	public boolean isThisClientRegistred(String userEmail) throws RemoteException, IOException;
+	
+	public Client userUpdateMyPubs(Client client) throws RemoteException,  IOException;
+	
 
 }

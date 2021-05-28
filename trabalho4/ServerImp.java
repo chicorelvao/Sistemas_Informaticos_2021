@@ -184,6 +184,9 @@ public class ServerImp extends UnicastRemoteObject implements Interface{
 	//ver pubs
 	public Client printPubs(Client user, boolean order) throws RemoteException {
 		pubsOrder.clear();
+		this.pubDB.clear();
+		
+		this.pubDB = RWfile.pubDB_updatefromfile(this.pubDB);
 		int size = user.getPubs().size();
 		
 		int min;
@@ -191,6 +194,9 @@ public class ServerImp extends UnicastRemoteObject implements Interface{
 		int indexRemove;
 		int max;
 		authorPubs = user.getPubs();
+		
+		
+		
 		/*
 		 * Apresentar as publicaÃ§oes ao utilizador:
 		 * - Por ordem crescente de citaÃ§oes
@@ -270,6 +276,9 @@ public class ServerImp extends UnicastRemoteObject implements Interface{
 		}
 		
 		//update nas pubs do user
+		
+		user.userPubs.clear();
+		System.out.println(pubsOrder.size());
 		user.userPubsUpdate(pubsOrder);
 		return user;
 	}
@@ -362,6 +371,15 @@ public class ServerImp extends UnicastRemoteObject implements Interface{
 	}
 	
 	
+	public Client userUpdateMyPubs(Client user) throws RemoteException, IOException {
+		//retornar 
+		user.userPubsUpdate(RWfile.updateMyPubs(user.getName()));
+		
+		System.out.println(user.userPubs.get(0).getTitle());
+
+		return user;
+		
+	}
 
 }
 		
